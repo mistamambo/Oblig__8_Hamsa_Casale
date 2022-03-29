@@ -27,12 +27,7 @@ export default {
           to: {type: 'movie'},
 
       },
-     /*  {
-          type: 'reference',
-          name: 'movie2',
-          title: 'movie',
-          to: {type: 'movie'},
-      },  */
+     
       {
           type: 'slug',
           name: 'name',
