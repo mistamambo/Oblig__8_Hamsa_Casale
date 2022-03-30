@@ -7,7 +7,7 @@ export default {
             type: 'string',
             name: 'title',
             title: 'title',
-            description: 'Skriv inn film navn',
+            description: 'Movie navn',
         },
         {
             type: 'reference',
@@ -26,17 +26,17 @@ export default {
             type:'text',
             name:'tekst',
             title: 'Description',
-            description: 'Movie description'
+            description: 'Informasjon'
         },
         {
             type:'image',
-            name:'poster',
-            title:'Movie poster',
+            name:'Bilde',
+            title:'Movie Bilde',
         },
         {
             type: 'slug',
-            name: 'slug2',
-            title: 'name',
+            name: 'slug',
+            title: 'slug',
             options: {
                 source: 'title',
                 maxLength: 200,

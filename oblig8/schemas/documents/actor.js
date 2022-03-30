@@ -31,7 +31,7 @@ export default {
       {
           type: 'slug',
           name: 'name',
-          title: 'name',
+          title: 'Slug',
           options: {
               source: 'actor',
               maxLength: 200,
