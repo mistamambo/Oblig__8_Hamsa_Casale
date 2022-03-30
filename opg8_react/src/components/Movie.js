@@ -1,27 +1,28 @@
-import { Link, useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom";
 
-const Movie = ({data}) => {
+const Movie = ({ title, actorm, dataM }) => {
 
-    const {name} = useParams();
-    console.log(name);
+  const {name}=useParams()
 
-    const movieListe = data.find((movieL)=> {
-        return movieL.slug === name
-    })
-    
-    return (
-        <>
-        
-        <article className="py-2 px-2">
-            <h1 className="font-bold text-xl">{movieListe.title}</h1>
-            { movieListe.actor2 !=null ?  ( <h3 className="font-bold mb-3"> Movie Stars: {movieListe.actor}  and {movieListe?.actor2}</h3>) : (<h3 className="font-bold"> Movie Star: {movieListe.actor} </h3>) }
-            <p className="mb-3">{movieListe.tekst}</p>
+  const movieSiteArray = dataM.find((movieSite)=>{
+    return movieSite.slug === name
+  })
 
-            <button className="mb-3"><Link to="/movies" className="bg-orange-500 text-sm text-blue-50 py-2 px-2 rounded-lg">Back to movies</Link></button>
-        </article>
-        
-        
-        </>
-    )
+  return(
+    <article className="movieArticle">
+      <img src={movieSiteArray.poster.asset.url} alt="Movie poster missing"></img>
+      <h2>{ movieSiteArray.title }</h2>
+      <p><strong>Released in </strong>{ movieSiteArray.year }</p>
+        <p>
+          <h3><strong>Actors apearing in the movie: </strong></h3>
+          <p className="borderNone">{ movieSiteArray.actor }</p>
+          <p className="borderNone">{movieSiteArray.actor2 }</p>
+        </p>
+
+      <p><strong>Moviedescription: </strong><br></br>{movieSiteArray.description}</p>
+      <button><Link to="/Movies">Back</Link></button>
+    </article>
+  )
 }
-export default Movie
+
+export default Movie;

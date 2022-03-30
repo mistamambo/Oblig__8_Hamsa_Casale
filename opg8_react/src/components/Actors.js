@@ -2,33 +2,39 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getActor } from "../lib/services/movieService";
 
-const Actors = ({ actor, setActor }) => {
-    const bringActor = async () => {
-        const dataA = await getActor();
-        setActor(dataA)
-    }
+import { getActors } from "../lib/services/movieService";
+import { Link } from 'react-router-dom';
+import { useEffect } from "react";
 
-    useEffect(() => {
-        bringActor();
-    }, [])
+const Actors = ({ dataA, setDataA }) => {
+  
+  const clickA = async () => {
+    const actorPack = await getActors()
+    setDataA(actorPack)
+  }
 
-    return (
-        <>
-                <h2 className="text-2xl flex justify-center">Movie actors below:</h2>
-                <button type="button" onClick={bringActor} className="bg-gray-500 text-blue-100 py-2 px-4 rounded-lg">Actors</button>
-                <div className="py-2 px-2 flex justify-center gap-2">
-                {data && data.map((actorList) => {
-        return ( 
-                        <div className="flex flex-row-2 justify-center gap-2 p-3 mb-5">
-                    <article key={actorList.title} className="text-lg font-bold mt-3">
-                        <h3>{actorList.title}</h3>
-                        <p>{actorList.actor}</p>
-                        <img src={actorList.poster.asset.url} className="max-w-sm mb-3 border-2 border-slate-900 round rounded-t-lg"/>
-                        <button><Link to={actorList.slug} className="bg-orange-500 text-sm text-blue-50 py-2 px-2 rounded-lg">Actor info</Link></button>
-                    </article>
-            </div>
-        )    
-        })}
-</>     )
+ useEffect(()=>{
+  clickA()
+ }, []) 
 
-export default Actors
+  return(
+  <>
+    <button type="button" onClick={clickA}>Actor</button>
+    <article>
+      {dataA?.length > 0 ? dataA.map((actorArray)=>{
+        return (
+        <div className="actorsDiv">
+          <article key={ actorArray.fullname }>
+            <img src={actorArray.portrait.asset.url} alt="missing portrait" className="imgClassActors"></img>
+            <h1>{ actorArray.fullname }</h1>
+            <button><Link to={ actorArray.slug } >Actor bio</Link></button>
+          </article>
+        </div>
+        )
+      }) :null }
+    </article>
+  </>
+  )
+}
+
+export default Actors;

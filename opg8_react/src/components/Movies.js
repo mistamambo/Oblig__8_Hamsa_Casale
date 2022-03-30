@@ -1,38 +1,38 @@
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom";
 import { getMovies } from "../lib/services/movieService";
+import { Link } from 'react-router-dom'
+import { useEffect } from "react";
 
 
-const Movies = ({ data, setData }) => {
 
-    const [content, setContent] = useState([])
+const Movies = ({ dataM, setDataM }) => {
+  
+  const clickM = async () => {
+    const moviePack = await getMovies()
+    setDataM(moviePack)
+  }
 
-    const fetchMovies = async (title, actor) => {
-        const dataM = await getMovies();
-        setData(dataM)
+useEffect(()=>{
+  clickM()
+}, [])
 
-    }
-    useEffect(() => {
-        fetchMovies();
-    }, [])
-
-    return (
-        <>
-            <h2 className="flex justify-center text-2xl">Movies below</h2>
-            <button type="button" onClick={fetchMovies} className="bg-gray-500 text-blue-100 py-2 px-4 rounded-lg">Movies</button>
-            <div className="py-2 px-2 flex justify-center gap-2"></div>
-            {data && data.map((movieList) => {
-    return (
-        <div className="flex flex-row-2 justify-center gap-2 p-3 mb-5">
-            <article key={movieList.title} className="text-lg font-bold mt-3">
-                <h3>{movieList.title}</h3>
-                <p>{movieList.actor}</p>
-                <img src={movieList.poster.asset.url} className="max-w-sm mb-3 border-2 border-slate-900 round rounded-t-lg" />
-                <button><Link to={movieList.slug} className="bg-orange-500 text-sm text-blue-50 py-2 px-2 rounded-lg" >Movie Info</Link></button>
+  return(
+  <>
+    <button type="button" onClick={clickM} >Movie</button>
+    <article>
+      {dataM?.length > 0 ? dataM.map((movieArray)=>{
+        return(
+          <div className="moviesDiv">
+            <article key={ movieArray.title } >
+              <img src={movieArray.poster.asset.url} alt="Movie poster missing" className="imgClassMovies"></img>
+              <h1>{ movieArray.title } </h1>
+              <button><Link to={ movieArray.slug }>Movie info</Link></button>
             </article>
-        </div>
-    )
-})}
-        </>    )
+          </div>
+        )
+      }):null}
+    </article>
+  </>
+  )
+}
 
-export default Movies
+export default Movies;
