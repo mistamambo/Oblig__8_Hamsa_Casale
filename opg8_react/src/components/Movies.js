@@ -20,22 +20,19 @@ const Movies = ({ data, setData }) => {
         <>
             <h2 className="flex justify-center text-2xl">Movies below</h2>
             <button type="button" onClick={fetchMovies} className="bg-gray-500 text-blue-100 py-2 px-4 rounded-lg">Movies</button>
+            <div className="py-2 px-2 flex justify-center gap-2"></div>
             {data && data.map((movieList) => {
     return (
         <div className="flex flex-row-2 justify-center gap-2 p-3 mb-5">
             <article key={movieList.title} className="text-lg font-bold mt-3">
                 <h3>{movieList.title}</h3>
-                <img src={movieList.poster.asset.url} className=" max-w-sm mb-3 round rounded-t-lg " ></img>
-                {movieList.slug && <button><Link to={movieList.slug} className="bg-orange-500 text-sm text-blue-50 py-2 px-2 rounded-lg" >Movie Info</Link></button>}
+                <p>{movieList.actor}</p>
+                <img src={movieList.poster.asset.url} className="max-w-sm mb-3 border-2 border-slate-900 round rounded-t-lg" />
+                <button><Link to={movieList.slug} className="bg-orange-500 text-sm text-blue-50 py-2 px-2 rounded-lg" >Movie Info</Link></button>
             </article>
         </div>
     )
 })}
+        </>    )
 
-        </>
-    )
-}
 export default Movies
-
-
-
